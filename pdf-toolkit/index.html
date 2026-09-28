@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paper — PDF Toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  :root{
+    --ink:#1c1e26;
+    --paper:#faf8f4;
+    --navy:#1f2a44;
+    --navy-2:#2c3a5e;
+    --stamp:#b23a48;
+    --stamp-dark:#8f2c38;
+    --line:#dcd6ca;
+    --muted:#75726a;
+    --ok:#3f6212;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--navy);
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(255,255,255,0.04), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(255,255,255,0.03), transparent 40%);
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+  }
+  header{
+    padding:36px 24px 18px;
+    text-align:center;
+    color:var(--paper);
+  }
+  header h1{
+    font-family:'Source Serif 4',Georgia,serif;
+    font-weight:700;
+    font-size:2rem;
+    margin:0 0 6px;
+    letter-spacing:0.2px;
+  }
+  header p{
+    margin:0;
+    color:#b9c2d6;
+    font-size:0.95rem;
+  }
+  .stamp{
+    display:inline-block;
+    border:2px solid var(--stamp);
+    color:var(--stamp);
+    padding:2px 10px;
+    border-radius:3px;
+    font-family:'Source Serif 4',serif;
+    font-weight:600;
+    font-size:0.75rem;
+    transform:rotate(-3deg);
+    margin-bottom:10px;
+  }
+  .tabs{
+    max-width:760px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+    padding:0 20px 20px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .tab{
+    background:var(--navy-2);
+    color:#dbe1ee;
+    border:1px solid rgba(255,255,255,0.12);
+    padding:9px 16px;
+    border-radius:20px;
+    font-size:0.85rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .tab:hover{background:#3a4a72;}
+  .tab.active{background:var(--stamp);border-color:var(--stamp);color:#fff;}
+
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 20px 60px;
+  }
+  .panel{
+    background:var(--paper);
+    border-radius:6px;
+    padding:28px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+    display:none;
+  }
+  .panel.active{display:block;}
+  .panel h2{
+    font-family:'Source Serif 4',serif;
+    font-size:1.3rem;
+    margin:0 0 4px;
+  }
+  .panel .desc{
+    color:var(--muted);
+    font-size:0.9rem;
+    margin:0 0 20px;
+  }
+  .dropzone{
+    border:2px dashed var(--line);
+    border-radius:6px;
+    padding:28px 16px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .dropzone:hover, .dropzone.drag{
+    border-color:var(--stamp);
+    background:rgba(178,58,72,0.04);
+  }
+  .dropzone p{margin:0;color:var(--muted);font-size:0.9rem;}
+  .dropzone strong{color:var(--ink);}
+  input[type=file]{display:none;}
+
+  .filelist{
+    list-style:none;
+    margin:18px 0 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .filelist li{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:10px 12px;
+    font-size:0.88rem;
+  }
+  .filelist .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .filelist button{
+    border:none;background:none;cursor:pointer;
+    color:var(--muted);font-size:0.95rem;padding:2px 6px;
+  }
+  .filelist button:hover{color:var(--stamp);}
+  .filelist .order-btns{display:flex;gap:2px;}
+
+  .page-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(96px,1fr));
+    gap:10px;
+    margin-top:18px;
+  }
+  .page-thumb{
+    position:relative;
+    border:2px solid var(--line);
+    border-radius:5px;
+    overflow:hidden;
+    cursor:pointer;
+    background:#fff;
+    transition:border-color .15s;
+  }
+  .page-thumb.marked{border-color:var(--stamp);}
+  .page-thumb img{display:block;width:100%;}
+  .page-thumb .num{
+    position:absolute;bottom:0;left:0;right:0;
+    background:rgba(28,30,38,0.75);
+    color:#fff;font-size:0.7rem;text-align:center;padding:2px 0;
+  }
+  .page-thumb .mark{
+    position:absolute;top:4px;right:4px;
+    width:18px;height:18px;border-radius:50%;
+    background:rgba(255,255,255,0.85);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.7rem;color:var(--stamp);
+    opacity:0;
+  }
+  .page-thumb.marked .mark{opacity:1;}
+  .page-thumb.marked .mark::after{content:'✕';}
+
+  .actions{
+    margin-top:22px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  button.primary{
+    background:var(--stamp);
+    color:#fff;
+    border:none;
+    padding:11px 20px;
+    border-radius:5px;
+    font-weight:600;
+    font-size:0.92rem;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  button.primary:hover{background:var(--stamp-dark);}
+  button.primary:disabled{background:#c9b8b8;cursor:not-allowed;}
+  button.secondary{
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:10px 18px;
+    border-radius:5px;
+    font-size:0.88rem;
+    cursor:pointer;
+  }
+  button.secondary:hover{border-color:var(--stamp);color:var(--stamp);}
+  .status{
+    font-size:0.85rem;
+    color:var(--ok);
+  }
+  .hint{
+    font-size:0.8rem;
+    color:var(--muted);
+    margin-top:14px;
+  }
+  footer{
+    text-align:center;
+    color:#8a93ab;
+    font-size:0.78rem;
+    padding:10px 20px 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="stamp">Paper</div>
+  <h1>PDF Toolkit</h1>
+  <p>Merge, delete pages, PDF ⇄ JPG — right in your browser. Your files are never uploaded to a server.</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-tab="merge">Merge PDF</div>
+  <div class="tab" data-tab="delete">Delete Pages</div>
+  <div class="tab" data-tab="pdf2img">PDF → JPG</div>
+  <div class="tab" data-tab="img2pdf">JPG/PNG → PDF</div>
+</div>
+
+<main>
+
+  <!-- MERGE -->
+  <section class="panel active" id="panel-merge">
+    <h2>Merge PDF</h2>
+    <p class="desc">Combine multiple PDF files into one. Files are merged in the order shown below.</p>
+    <div class="dropzone" id="drop-merge">
+      <p><strong>Click to choose files</strong> or drag PDF files here</p>
+    </div>
+    <input type="file" id="input-merge" accept="application/pdf" multiple>
+    <ul class="filelist" id="list-merge"></ul>
+    <div class="actions">
+      <button class="primary" id="btn-merge" disabled>Merge & Download</button>
+      <span class="status" id="status-merge"></span>
+    </div>
+  </section>
+
+  <!-- DELETE PAGES -->
+  <section class="panel" id="panel-delete">
+    <h2>Delete Pages</h2>
+    <p class="desc">Choose a PDF, then click the pages you want to remove (marked with a red ✕).</p>
+    <div class="dropzone" id="drop-delete">
+      <p><strong>Click to choose a file</strong> or drag a PDF here</p>
+    </div>
+    <input type="file" id="input-delete" accept="application/pdf">
+    <div class="page-grid" id="grid-delete"></div>
+    <div class="actions" id="actions-delete" style="display:none;">
+      <button class="primary" id="btn-delete">Remove Selected Pages & Download</button>
+      <span class="status" id="status-delete"></span>
+    </div>
+  </section>
+
+  <!-- PDF TO IMG -->
+  <section class="panel" id="panel-pdf2img">
+    <h2>PDF → JPG</h2>
+    <p class="desc">Download each page of your PDF as a JPG image.</p>
+    <div class="dropzone" id="drop-pdf2img">
+      <p><strong>Click to choose a file</strong> or drag a PDF here</p>
+    </div>
+    <input type="file" id="input-pdf2img" accept="application/pdf">
+    <div class="page-grid" id="grid-pdf2img"></div>
+    <div class="actions" id="actions-pdf2img" style="display:none;">
+      <button class="primary" id="btn-pdf2img-all">Download All Pages</button>
+      <span class="status" id="status-pdf2img"></span>
+    </div>
+    <p class="hint">To download a single page, click its thumbnail.</p>
+  </section>
+
+  <!-- IMG TO PDF -->
+  <section class="panel" id="panel-img2pdf">
+    <h2>JPG/PNG → PDF</h2>
+    <p class="desc">Choose multiple images and combine them into a single PDF, with one image per page.</p>
+    <div class="dropzone" id="drop-img2pdf">
+      <p><strong>Click to choose files</strong> or drag images here</p>
+    </div>
+    <input type="file" id="input-img2pdf" accept="image/jpeg,image/png" multiple>
+    <ul class="filelist" id="list-img2pdf"></ul>
+    <div class="actions">
+      <button class="primary" id="btn-img2pdf" disabled>Create PDF & Download</button>
+      <span class="status" id="status-img2pdf"></span>
+    </div>
+  </section>
+
+</main>
+
+<footer>All file processing happens in your browser — your files are never uploaded.</footer>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const { PDFDocument } = PDFLib;
+
+// ---- tab switching ----
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+function setupDropzone(zoneId, inputId, onFiles, multiple){
+  const zone = document.getElementById(zoneId);
+  const input = document.getElementById(inputId);
+  zone.addEventListener('click', ()=>input.click());
+  input.addEventListener('change', ()=>{
+    if(input.files.length) onFiles(multiple ? Array.from(input.files) : input.files[0]);
+    input.value = '';
+  });
+  ['dragenter','dragover'].forEach(evt=>zone.addEventListener(evt,e=>{e.preventDefault();zone.classList.add('drag');}));
+  ['dragleave','drop'].forEach(evt=>zone.addEventListener(evt,e=>{e.preventDefault();zone.classList.remove('drag');}));
+  zone.addEventListener('drop', e=>{
+    const files = Array.from(e.dataTransfer.files);
+    if(!files.length) return;
+    onFiles(multiple ? files : files[0]);
+  });
+}
+
+function download(bytes, filename, mime){
+  const blob = new Blob([bytes], {type:mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+
+// ================= MERGE =================
+let mergeFiles = [];
+function renderMergeList(){
+  const ul = document.getElementById('list-merge');
+  ul.innerHTML = '';
+  mergeFiles.forEach((f,i)=>{
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="name">${i+1}. ${f.name}</span>
+      <span class="order-btns">
+        <button data-act="up" data-i="${i}" title="Move up">↑</button>
+        <button data-act="down" data-i="${i}" title="Move down">↓</button>
+      </span>
+      <button data-act="rm" data-i="${i}" title="Remove">🗑</button>`;
+    ul.appendChild(li);
+  });
+  document.getElementById('btn-merge').disabled = mergeFiles.length < 2;
+  ul.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const i = +btn.dataset.i;
+      if(btn.dataset.act==='rm') mergeFiles.splice(i,1);
+      if(btn.dataset.act==='up' && i>0) [mergeFiles[i-1],mergeFiles[i]]=[mergeFiles[i],mergeFiles[i-1]];
+      if(btn.dataset.act==='down' && i<mergeFiles.length-1) [mergeFiles[i+1],mergeFiles[i]]=[mergeFiles[i],mergeFiles[i+1]];
+      renderMergeList();
+    });
+  });
+}
+setupDropzone('drop-merge','input-merge', files=>{ mergeFiles.push(...files); renderMergeList(); }, true);
+
+document.getElementById('btn-merge').addEventListener('click', async ()=>{
+  const status = document.getElementById('status-merge');
+  status.textContent = 'Merging...';
+  try{
+    const outPdf = await PDFDocument.create();
+    for(const f of mergeFiles){
+      const bytes = await f.arrayBuffer();
+      const src = await PDFDocument.load(bytes);
+      const pages = await outPdf.copyPages(src, src.getPageIndices());
+      pages.forEach(p=>outPdf.addPage(p));
+    }
+    const finalBytes = await outPdf.save();
+    download(finalBytes, 'merged.pdf', 'application/pdf');
+    status.textContent = 'Done ✓';
+  }catch(err){
+    console.error(err);
+    status.textContent = 'Error: ' + err.message;
+  }
+});
+
+// ================= DELETE PAGES =================
+let deleteFile = null, deletePdfBytes = null, deleteMarked = new Set(), deletePageCount = 0;
+
+setupDropzone('drop-delete','input-delete', async (file)=>{
+  deleteFile = file;
+  deleteMarked = new Set();
+  const grid = document.getElementById('grid-delete');
+  grid.innerHTML = '<p class="hint">Loading pages...</p>';
+  document.getElementById('actions-delete').style.display = 'none';
+
+  deletePdfBytes = await file.arrayBuffer();
+  const loadingTask = pdfjsLib.getDocument({data: deletePdfBytes.slice(0)});
+  const pdf = await loadingTask.promise;
+  deletePageCount = pdf.numPages;
+  grid.innerHTML = '';
+
+  for(let i=1;i<=pdf.numPages;i++){
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({scale:0.35});
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width; canvas.height = viewport.height;
+    await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
+
+    const div = document.createElement('div');
+    div.className = 'page-thumb';
+    div.dataset.page = i;
+    div.innerHTML = `<span class="num">Page ${i}</span><span class="mark"></span>`;
+    div.prepend(canvas);
+    div.addEventListener('click', ()=>{
+      const p = +div.dataset.page;
+      if(deleteMarked.has(p)){ deleteMarked.delete(p); div.classList.remove('marked'); }
+      else { deleteMarked.add(p); div.classList.add('marked'); }
+    });
+    grid.appendChild(div);
+  }
+  document.getElementById('actions-delete').style.display = 'flex';
+}, false);
+
+document.getElementById('btn-delete').addEventListener('click', async ()=>{
+  const status = document.getElementById('status-delete');
+  if(deleteMarked.size === 0){ status.textContent = 'Please select at least one page.'; return; }
+  if(deleteMarked.size === deletePageCount){ status.textContent = 'You must keep at least one page.'; return; }
+  status.textContent = 'Processing...';
+  try{
+    const src = await PDFDocument.load(deletePdfBytes);
+    const keepIndices = src.getPageIndices().filter(idx => !deleteMarked.has(idx+1));
+    const outPdf = await PDFDocument.create();
+    const pages = await outPdf.copyPages(src, keepIndices);
+    pages.forEach(p=>outPdf.addPage(p));
+    const bytes = await outPdf.save();
+    download(bytes, 'pages-removed.pdf', 'application/pdf');
+    status.textContent = 'Done ✓';
+  }catch(err){
+    console.error(err);
+    status.textContent = 'Error: ' + err.message;
+  }
+});
+
+// ================= PDF TO IMG =================
+setupDropzone('drop-pdf2img','input-pdf2img', async (file)=>{
+  const grid = document.getElementById('grid-pdf2img');
+  grid.innerHTML = '<p class="hint">Loading pages...</p>';
+  document.getElementById('actions-pdf2img').style.display = 'none';
+
+  const bytes = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data: bytes}).promise;
+  grid.innerHTML = '';
+  const canvases = [];
+
+  for(let i=1;i<=pdf.numPages;i++){
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({scale:1.4});
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width; canvas.height = viewport.height;
+    await page.render({canvasContext:canvas.getContext('2d'), viewport}).promise;
+    canvases.push(canvas);
+
+    const thumbCanvas = document.createElement('canvas');
+    const scale = 96 / viewport.width;
+    thumbCanvas.width = 96; thumbCanvas.height = viewport.height*scale;
+    thumbCanvas.getContext('2d').drawImage(canvas,0,0,thumbCanvas.width,thumbCanvas.height);
+
+    const div = document.createElement('div');
+    div.className = 'page-thumb';
+    div.innerHTML = `<span class="num">Page ${i}</span>`;
+    div.prepend(thumbCanvas);
+    div.addEventListener('click', ()=>{
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+      const a = document.createElement('a');
+      a.href = dataUrl; a.download = `page-${i}.jpg`;
+      a.click();
+    });
+    grid.appendChild(div);
+  }
+  document.getElementById('actions-pdf2img').style.display = 'flex';
+
+  document.getElementById('btn-pdf2img-all').onclick = async ()=>{
+    const status = document.getElementById('status-pdf2img');
+    for(let i=0;i<canvases.length;i++){
+      const dataUrl = canvases[i].toDataURL('image/jpeg', 0.92);
+      const a = document.createElement('a');
+      a.href = dataUrl; a.download = `page-${i+1}.jpg`;
+      a.click();
+      await new Promise(r=>setTimeout(r, 250));
+    }
+    status.textContent = 'Done ✓';
+  };
+}, false);
+
+// ================= IMG TO PDF =================
+let imgFiles = [];
+function renderImgList(){
+  const ul = document.getElementById('list-img2pdf');
+  ul.innerHTML = '';
+  imgFiles.forEach((f,i)=>{
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="name">${i+1}. ${f.name}</span>
+      <span class="order-btns">
+        <button data-act="up" data-i="${i}">↑</button>
+        <button data-act="down" data-i="${i}">↓</button>
+      </span>
+      <button data-act="rm" data-i="${i}">🗑</button>`;
+    ul.appendChild(li);
+  });
+  document.getElementById('btn-img2pdf').disabled = imgFiles.length === 0;
+  ul.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const i = +btn.dataset.i;
+      if(btn.dataset.act==='rm') imgFiles.splice(i,1);
+      if(btn.dataset.act==='up' && i>0) [imgFiles[i-1],imgFiles[i]]=[imgFiles[i],imgFiles[i-1]];
+      if(btn.dataset.act==='down' && i<imgFiles.length-1) [imgFiles[i+1],imgFiles[i]]=[imgFiles[i],imgFiles[i+1]];
+      renderImgList();
+    });
+  });
+}
+setupDropzone('drop-img2pdf','input-img2pdf', files=>{ imgFiles.push(...files); renderImgList(); }, true);
+
+document.getElementById('btn-img2pdf').addEventListener('click', async ()=>{
+  const status = document.getElementById('status-img2pdf');
+  status.textContent = 'Creating PDF...';
+  try{
+    const pdfDoc = await PDFDocument.create();
+    for(const f of imgFiles){
+      const bytes = await f.arrayBuffer();
+      let img;
+      if(f.type === 'image/png') img = await pdfDoc.embedPng(bytes);
+      else img = await pdfDoc.embedJpg(bytes);
+      const page = pdfDoc.addPage([img.width, img.height]);
+      page.drawImage(img, {x:0, y:0, width:img.width, height:img.height});
+    }
+    const bytes = await pdfDoc.save();
+    download(bytes, 'images.pdf', 'application/pdf');
+    status.textContent = 'Done ✓';
+  }catch(err){
+    console.error(err);
+    status.textContent = 'Error: ' + err.message;
+  }
+});
+</script>
+
+</body>
+</html>
