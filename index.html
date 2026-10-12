@@ -134,7 +134,7 @@
   .feature-copy p{color:var(--ink-soft);max-width:48ch;margin:0 0 20px;}
   .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
   .tags span{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);border:1px solid var(--rule);border-radius:3px;padding:4px 9px;}
-  .feature-links{display:flex;gap:22px;font-family:var(--mono);font-size:13.5px;}
+  .feature-links{display:flex;flex-wrap:wrap;gap:12px 22px;font-family:var(--mono);font-size:13.5px;}
   .feature-links a{border-bottom:1px solid var(--ink);}
   .feature-links a:hover{color:var(--red);border-color:var(--red);}
   .feature-visual{background:linear-gradient(160deg,var(--paper-deep),var(--card));display:flex;align-items:end;justify-content:center;padding:30px 30px 0;}
@@ -248,27 +248,31 @@
       <a class="all-link" href="https://github.com/j-kavindu?tab=repositories">All repositories</a>
     </div>
 
-    <article class="feature" style="margin-bottom:28px">
+    <article class="feature" id="finstatement-pro" style="margin-bottom:28px">
       <div class="feature-copy">
-        <span class="entry-no">Financial reporting · Portfolio project</span>
+        <span class="entry-no">P01 · Automated Financial Statement Generator · v0.2.0</span>
         <h3>FinStatement Pro</h3>
-        <p>A financial reporting workspace that converts classified trial balances and balanced adjusting journals into draft financial statements, ratios, and PDF or Excel reports. Built around reconciliation, accounting validation, and transparent source-data requirements.</p>
-        <div class="tags"><span>Accounting</span><span>Financial Reporting</span><span>Reconciliation &amp; Controls</span><span>React · TypeScript</span><span>Automated Tests</span><span>CSV · Excel · PDF</span></div>
+        <p>Built to reduce repetitive work between a trial balance and draft financial statements. Import CSV or Excel, map the Chart of Accounts, post balanced adjusting journals, and prepare Profit or Loss, Financial Position, and Changes in Equity.</p>
+        <p>Controls cover debit–credit balance, contra-account review, opening equity reconciliation, and export readiness. Monetary calculations use decimal.js; cash flow requires comparative balances and supplementary movement data.</p>
+        <div class="tags"><span>Financial Reporting</span><span>React · TypeScript</span><span>Firebase</span><span>decimal.js</span><span>CSV · Excel · PDF</span></div>
         <div class="feature-links">
           <a href="https://j-kavindu.github.io/finstatement-pro/">Try synthetic demo</a>
           <a href="https://github.com/j-kavindu/finstatement-pro">View source</a>
-          <a href="https://github.com/j-kavindu/finstatement-pro/blob/main/AUDIT.md">Technical audit</a>
-          <a href="https://github.com/j-kavindu/finstatement-pro/actions">Build &amp; test checks</a>
+          <a href="https://github.com/j-kavindu/finstatement-pro/blob/main/TEST-RESULTS.md">Test evidence</a>
+          <a href="https://github.com/j-kavindu/finstatement-pro/blob/main/docs/ARCHITECTURE.md">Architecture</a>
+          <a href="https://github.com/j-kavindu/finstatement-pro/blob/main/DEPLOYMENT.md">Deployment guide</a>
         </div>
-        <p style="margin-top:20px;font-size:14px">Synthetic demo data. Reports remain draft; cash flow requires comparative balances and supplementary information. Not a certified IFRS/SLFRS reporting system.</p>
+        <p style="margin-top:20px;font-size:14px">Verified: 36 unit/regression tests, 12 accounting scenarios, responsive browser workflows, and Firebase rules tests in CI.</p>
+        <p style="font-size:14px">Synthetic demo data; reports remain DRAFT. No certified IFRS/SLFRS compliance is claimed. The public demo uses in-memory data; private Firebase persistence requires configuration.</p>
       </div>
       <div class="feature-visual" style="align-items:center;padding:30px">
         <div class="ledger-card" style="width:100%;animation:none">
-          <div class="lc-head"><span>Reporting workflow</span><span>Draft</span></div>
-          <div class="lc-row"><span>01 · Trial balance</span><span>Import &amp; validate</span></div>
+          <div class="lc-head"><span>P01 · Reporting workflow</span><span>DRAFT</span></div>
+          <a href="https://j-kavindu.github.io/finstatement-pro/" aria-label="Open FinStatement Pro synthetic demo"><img src="https://raw.githubusercontent.com/j-kavindu/finstatement-pro/main/docs/dashboard.png" alt="FinStatement Pro dashboard with synthetic financial figures and reporting validation controls" loading="lazy" style="border:1px solid var(--rule);border-radius:4px;margin:18px 0"></a>
+          <div class="lc-row"><span>01 · Trial balance</span><span>Import &amp; map</span></div>
           <div class="lc-row"><span>02 · Adjustments</span><span>Debits = credits</span></div>
-          <div class="lc-row"><span>03 · Statements</span><span>Reconcile &amp; review</span></div>
-          <div class="lc-row total"><span>04 · Reports</span><span>PDF · Excel · CSV</span></div>
+          <div class="lc-row"><span>03 · Equity</span><span>Reconcile &amp; review</span></div>
+          <div class="lc-row total"><span>04 · Statements</span><span>PDF · Excel · CSV</span></div>
         </div>
       </div>
     </article>
@@ -421,3 +425,4 @@
 
 </body>
 </html>
+
