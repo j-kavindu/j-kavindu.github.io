@@ -209,14 +209,49 @@
     table.ledger td,table.ledger th{padding:12px 8px;}
     .row-desc{display:none;}
   }
+
+  /* Keep content readable and reachable on narrow screens and keyboards. */
+  :where(a):focus-visible{outline:3px solid var(--red);outline-offset:5px;border-radius:3px;}
+  .skip-link{position:absolute;left:16px;top:8px;z-index:20;padding:10px 16px;background:var(--ink);color:var(--paper);transform:translateY(-160%);}
+  .skip-link:focus{transform:translateY(0);}
+  .hero>*,.feature>*,.about>*{min-width:0;}
+  .brand{min-width:0;}
+  .brand .seal{flex-shrink:0;}
+  .brand>span:last-child{overflow-wrap:anywhere;}
+  .links{flex-wrap:wrap;align-items:center;}
+  .lc-head,.lc-row{gap:12px;flex-wrap:wrap;}
+  .lc-row span:last-child{margin-left:auto;text-align:right;}
+  .row-name,.row-desc,.feature-links a{overflow-wrap:anywhere;}
+  .unavailable{color:var(--ink-soft);font-size:11px;}
+  .foot-links{flex-wrap:wrap;}
+  @media (max-width:560px){
+    .shell{width:calc(100% - 32px);}
+    .nav-row{padding-block:12px;gap:12px;}
+    .brand{font-size:15px;}
+    .links{width:100%;gap:8px 14px;}
+    .links a{padding-block:6px;}
+    .hero{gap:28px;}
+    .ledger-card{padding:20px 16px;font-size:12px;}
+    .section{padding-block:48px;}
+    .row-desc{display:block;font-size:13px;}
+    .row-link{width:auto;font-size:11px;}
+    .row-no{width:32px;}
+    table.ledger{table-layout:fixed;}
+    table.ledger th:last-child{width:90px;}
+    section{scroll-margin-top:155px;}
+    .strip-row span{border-left:none;padding-inline:0;width:100%;}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to main content</a>
 
 <header class="nav">
   <div class="shell nav-row">
     <a class="brand" href="#top"><span class="seal">KJ</span><span>Kavindu Heshan Jayawardhana</span></a>
-    <nav class="links">
+    <nav class="links" aria-label="Main navigation">
       <a href="#work">Work</a>
       <a href="#volunteer">Volunteer</a>
       <a href="#about">About</a>
@@ -226,7 +261,7 @@
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
   <div class="shell hero">
     <div>
       <span class="hero-label">Accounting undergraduate, Sri Lanka</span>
@@ -349,7 +384,7 @@
     <table class="ledger">
       <caption>Other entries</caption>
       <thead>
-        <tr><th class="row-no">No.</th><th>Project</th><th class="row-type">Type</th><th style="text-align:right">Link</th></tr>
+        <tr><th scope="col" class="row-no">No.</th><th scope="col">Project</th><th scope="col" class="row-type">Type</th><th scope="col" style="text-align:right">Link</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -362,7 +397,7 @@
           <td class="row-no">003</td>
           <td><div class="row-name">CSE Offline Excel Portfolio Tracker</div><div class="row-desc">An offline spreadsheet template for holdings, dividends, sectors, and portfolio targets in LKR.</div></td>
           <td class="row-type">Excel</td>
-          <td class="row-link"><a href="https://github.com/j-kavindu/cse-offline-excel-portfolio-tracker">Repository</a></td>
+          <td class="row-link"><span class="unavailable">Repository unavailable</span></td>
         </tr>
         <tr>
           <td class="row-no">004</td>
@@ -393,7 +428,7 @@
     <table class="ledger">
       <caption>Community entries</caption>
       <thead>
-        <tr><th class="row-no">No.</th><th>Channel</th><th class="row-type">Type</th><th style="text-align:right">Link</th></tr>
+        <tr><th scope="col" class="row-no">No.</th><th scope="col">Channel</th><th scope="col" class="row-type">Type</th><th scope="col" style="text-align:right">Link</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -431,7 +466,7 @@
     <table class="ledger">
       <caption>Contact ledger</caption>
       <thead>
-        <tr><th class="row-no">No.</th><th>Platform</th><th style="text-align:right">Link</th></tr>
+        <tr><th scope="col" class="row-no">No.</th><th scope="col">Platform</th><th scope="col" style="text-align:right">Link</th></tr>
       </thead>
       <tbody>
         <tr><td class="row-no">009</td><td class="row-name">Facebook</td><td class="row-link"><a href="https://www.facebook.com/j.kavindu" target="_blank" rel="noopener">Visit</a></td></tr>
