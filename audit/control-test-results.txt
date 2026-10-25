@@ -1,0 +1,13 @@
+✔ filters show correct project sets and restore all nine projects (3.930278ms)
+✔ theme preference restores and toggles with matching label and theme color (1.09357ms)
+✔ denied storage does not prevent theme, filters or navigation (1.455385ms)
+✔ mobile navigation opens, closes with Escape, and returns keyboard focus (1.281393ms)
+✔ desktop resize makes links available and mobile toggle no longer visible (0.96098ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 128.077951

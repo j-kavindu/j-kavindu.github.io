@@ -1,0 +1,16 @@
+{
+  "google_rich_results": {
+    "mode": "draft code",
+    "result": "1 valid Profile page item detected",
+    "url": "https://search.google.com/test/rich-results/result?id=cOjwwG0VB3wb9NuZORuXpQ"
+  },
+  "schema_org": "Blocked by unusual-traffic CAPTCHA; no challenge attempted",
+  "pagespeed": {
+    "target": "https://j-kavindu.github.io/",
+    "version": "unchanged production baseline",
+    "result": "No field data; lab report remained loading; no scores recorded"
+  },
+  "search_console": "Signed-out entry page; no indexing submission",
+  "bing_webmaster_tools": "Sign-in required; no sitemap or indexing submission",
+  "local_preview": "file URL blocked by browser security; local browser install rejected by automatic review as workaround; no bypass"
+}

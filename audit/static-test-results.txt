@@ -1,0 +1,25 @@
+test_accessible_controls_and_motion (__main__.PortfolioChecks.test_accessible_controls_and_motion) ... ok
+test_canonicals_match_routes (__main__.PortfolioChecks.test_canonicals_match_routes) ... ok
+test_css_braces_and_no_global_overflow_hiding (__main__.PortfolioChecks.test_css_braces_and_no_global_overflow_hiding) ... ok
+test_education_is_current_not_completed (__main__.PortfolioChecks.test_education_is_current_not_completed) ... ok
+test_existing_verification_file_preserved (__main__.PortfolioChecks.test_existing_verification_file_preserved) ... ok
+test_images_have_alt_and_dimensions (__main__.PortfolioChecks.test_images_have_alt_and_dimensions) ... ok
+test_js_syntax (__main__.PortfolioChecks.test_js_syntax) ... ok
+test_local_links_and_anchors_resolve (__main__.PortfolioChecks.test_local_links_and_anchors_resolve) ... ok
+test_no_empty_or_placeholder_links (__main__.PortfolioChecks.test_no_empty_or_placeholder_links) ... ok
+test_no_invented_cv_or_contact_form (__main__.PortfolioChecks.test_no_invented_cv_or_contact_form) ... ok
+test_no_runtime_dependencies_or_tracking_on_home (__main__.PortfolioChecks.test_no_runtime_dependencies_or_tracking_on_home) ... ok
+test_pdf_security_mitigation (__main__.PortfolioChecks.test_pdf_security_mitigation) ... ok
+test_project_filter_data (__main__.PortfolioChecks.test_project_filter_data) ... ok
+test_schema_matches_identity (__main__.PortfolioChecks.test_schema_matches_identity) ... ok
+test_sitemap_and_robots (__main__.PortfolioChecks.test_sitemap_and_robots) ... ok
+test_social_metadata (__main__.PortfolioChecks.test_social_metadata) ... ok
+test_social_png_dimensions (__main__.PortfolioChecks.test_social_png_dimensions) ... ok
+test_titles_and_descriptions_are_unique (__main__.PortfolioChecks.test_titles_and_descriptions_are_unique) ... ok
+test_unique_h1_and_ids (__main__.PortfolioChecks.test_unique_h1_and_ids) ... ok
+test_viewport_preserves_zoom (__main__.PortfolioChecks.test_viewport_preserves_zoom) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.284s
+
+OK

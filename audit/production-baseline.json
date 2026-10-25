@@ -1,0 +1,12 @@
+{
+  "production_commit": "13676578e188ed96b469746f45e9a5e20db27266",
+  "production_url": "https://j-kavindu.github.io/",
+  "recovery_branch": "backup/portfolio-before-redesign-2026-10-25",
+  "working_branch": "portfolio/professional-redesign-2026-10-25",
+  "pages_source": "main / (root)",
+  "custom_domain": null,
+  "https_required": true,
+  "owned_repositories": 10,
+  "admin_repositories": 10,
+  "readme_and_file_structure_audited": 10
+}

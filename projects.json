@@ -1,0 +1,247 @@
+[
+  {
+    "id": "finstatement-pro",
+    "title": "FinStatement Pro",
+    "category": "accounting",
+    "kind": "Financial reporting",
+    "status": "Working MVP",
+    "featured": true,
+    "repo": "finstatement-pro",
+    "demo": "https://j-kavindu.github.io/finstatement-pro/",
+    "image": "project-finstatement.webp",
+    "alt": "FinStatement Pro dashboard with synthetic reporting figures and validation controls",
+    "summary": "From a trial balance to reviewable draft financial statements.",
+    "problem": "Preparing statements involves more than importing a trial balance. Accounts, adjustments and equity movements need to reconcile before a report can be reviewed.",
+    "solution": "An interactive reporting workflow for importing balances, mapping accounts, posting balanced adjustments and reviewing financial statements.",
+    "features": [
+      "CSV and Excel trial-balance imports with account mapping",
+      "Balanced adjusting journals and opening-equity reconciliation",
+      "Draft financial statements with PDF, Excel and CSV exports"
+    ],
+    "tech": [
+      "React",
+      "TypeScript",
+      "decimal.js",
+      "Firebase"
+    ],
+    "skills": "Financial reporting · reconciliation · validation design",
+    "limits": "Synthetic demo data. Reports remain drafts. Firebase is optional and is not configured in the public demo. Cash-flow reporting requires comparative balances and supplementary movements.",
+    "evidence": "Source and verification documentation inspected. The repository records 36 unit tests and 12 accounting scenarios; those suites were not rerun as part of this portfolio redesign.",
+    "source_note": "Public source code",
+    "detail": true
+  },
+  {
+    "id": "stockwise",
+    "title": "Stockwise",
+    "category": "accounting",
+    "kind": "Inventory accounting",
+    "status": "Working MVP",
+    "featured": true,
+    "repo": "p05-inventory-valuation",
+    "demo": "https://j-kavindu.github.io/p05-inventory-valuation/",
+    "image": "project-stockwise.webp",
+    "alt": "Stockwise inventory dashboard showing synthetic stock valuation, cost of goods sold and product movements",
+    "summary": "Make inventory costing visible, from stock movements to closing value.",
+    "problem": "FIFO and weighted-average methods can produce different inventory and cost-of-sales results. Linked returns and negative stock make the workflow harder to explain.",
+    "solution": "A costing app that connects purchases, sales and linked returns with stock cards and a comparison of periodic and perpetual valuation methods.",
+    "features": [
+      "FIFO and weighted average under periodic and perpetual systems",
+      "Linked purchase and sales returns with quantity checks",
+      "Stock cards, low-stock alerts and CSV/JSON export"
+    ],
+    "tech": [
+      "React",
+      "TypeScript",
+      "decimal.js",
+      "Firebase-ready"
+    ],
+    "skills": "Inventory valuation · accounting controls · decimal arithmetic",
+    "limits": "A single-period, single-warehouse costing MVP using synthetic LKR data. Public demo data stays in local storage. Live cloud acceptance and full mobile testing remain pending.",
+    "evidence": "Source, costing policies and verification notes inspected. The repository records 26 valuation tests and a desktop deployment smoke check; not a financial-compliance certification.",
+    "source_note": "Public source code",
+    "detail": true
+  },
+  {
+    "id": "nation360",
+    "title": "NATION 360",
+    "category": "economics",
+    "kind": "Economics & education",
+    "status": "Release candidate",
+    "featured": true,
+    "repo": "nation360",
+    "demo": "https://j-kavindu.github.io/nation360/",
+    "image": "project-nation360.webp",
+    "alt": "NATION 360 village gameplay after the first mining shift pays ten dollars",
+    "summary": "An economic journey from a first wage to presidential decisions.",
+    "problem": "Economic ideas are easier to explore when choices have visible costs, constraints and consequences.",
+    "solution": "A two-level simulation connecting work, farming, trade and enterprise with a later presidential economy. Players progress through milestones before Level II unlocks.",
+    "features": [
+      "Manual wage shifts, farming and business progression",
+      "Budget, debt, foreign-exchange and Balance of Payments systems",
+      "Browser saves, task animation and original supplied theme music"
+    ],
+    "tech": [
+      "React",
+      "TypeScript",
+      "Phaser 3",
+      "HTML Audio"
+    ],
+    "skills": "Economic modelling · interactive learning · game interfaces",
+    "limits": "Version 1.0.1 release candidate. The public repository contains deployment assets, not the editable TypeScript project. Full mobile and physical-device acceptance remain pending.",
+    "evidence": "The separate release project passed 121 automated tests. A live desktop smoke check confirmed menu rendering, theme playback, job-panel dismissal and the first $10 mining wage. These results do not establish complete gameplay acceptance.",
+    "source_note": "Deployment repository",
+    "detail": true
+  },
+  {
+    "id": "cse",
+    "title": "CSE Portfolio Tracker",
+    "category": "finance",
+    "kind": "Investment record keeping",
+    "status": "Published app",
+    "featured": false,
+    "repo": "cse-portfolio-tracker",
+    "demo": "https://j-kavindu.github.io/cse-portfolio-tracker/",
+    "image": "project-cse.webp",
+    "alt": "CSE Portfolio Tracker mobile dashboard with sample holdings and manually entered prices",
+    "summary": "An installable ledger for CSE holdings, dividends, cash flow and portfolio performance.",
+    "features": [
+      "Weighted-average cost and realized/unrealized results",
+      "Manual prices, dividends and cash adjustments",
+      "IndexedDB cache with Firebase account-sync integration"
+    ],
+    "tech": [
+      "JavaScript",
+      "IndexedDB",
+      "Firebase",
+      "PWA"
+    ],
+    "limits": "Prices are entered manually. This is a portfolio ledger; live market-data feeds and trading are outside its scope.",
+    "source_note": "View source"
+  },
+  {
+    "id": "business-dashboard",
+    "title": "Small Business Accounting Dashboard",
+    "category": "accounting",
+    "kind": "Academic spreadsheet project",
+    "status": "Workbook available",
+    "featured": false,
+    "repo": "small-business-accounting-dashboard",
+    "demo": null,
+    "image": "project-business.webp",
+    "alt": "Excel small business dashboard with synthetic income, expense and budget figures",
+    "summary": "A spreadsheet management view of income, expenses, profitability, receivables and budget performance.",
+    "features": [
+      "Transaction register and customer analysis",
+      "Monthly budget-versus-actual formulas",
+      "Excel tables prepared for a later Power BI model"
+    ],
+    "tech": [
+      "Microsoft Excel",
+      "Formulas",
+      "Charts"
+    ],
+    "limits": "Fictional demonstration records. A Power BI-ready data structure is included; no Power BI report file was found.",
+    "source_note": "Workbook & documentation"
+  },
+  {
+    "id": "personal-finance",
+    "title": "Personal Finance Tracker",
+    "category": "finance",
+    "kind": "Academic spreadsheet project",
+    "status": "Workbook available",
+    "featured": false,
+    "repo": "personal-finance-tracker",
+    "demo": null,
+    "image": "project-finance.webp",
+    "alt": "Personal finance Excel dashboard summarizing fictional monthly LKR transactions",
+    "summary": "A monthly LKR income-and-expense workbook with refund treatment and category reconciliation.",
+    "features": [
+      "Structured transaction table with entry validation",
+      "Monthly SUMIFS summaries and category chart",
+      "Documented fictional examples and calculation checks"
+    ],
+    "tech": [
+      "Microsoft Excel",
+      "SUMIFS",
+      "Data validation"
+    ],
+    "limits": "A cash-flow summary, not a bank-balance model. Native Microsoft Excel desktop compatibility has not been independently tested.",
+    "source_note": "Workbook & documentation"
+  },
+  {
+    "id": "pdf-toolkit",
+    "title": "PDF Toolkit",
+    "category": "tools",
+    "kind": "Browser utility",
+    "status": "Published tool",
+    "featured": false,
+    "repo": "j-kavindu.github.io/tree/main/pdf-toolkit",
+    "demo": "https://j-kavindu.github.io/pdf-toolkit/",
+    "image": null,
+    "alt": "",
+    "summary": "Merge PDFs, remove pages, export pages as JPG and combine images into a PDF in the browser.",
+    "features": [
+      "PDF merging and selected-page removal",
+      "PDF-to-JPG and image-to-PDF conversion",
+      "Files processed locally in the browser"
+    ],
+    "tech": [
+      "JavaScript",
+      "PDF.js",
+      "pdf-lib"
+    ],
+    "limits": "Documents are processed on the device. PDF libraries load from public CDNs; large files are limited by available browser memory.",
+    "source_note": "View source"
+  },
+  {
+    "id": "my24",
+    "title": "My 24",
+    "category": "android",
+    "kind": "Android app distribution",
+    "status": "APK release",
+    "featured": false,
+    "repo": "my24",
+    "demo": null,
+    "image": "project-my24.webp",
+    "alt": "My 24 Android home screen supplied by the developer",
+    "summary": "A personal productivity and daily planning app distributed as a signed Android APK.",
+    "features": [
+      "Home, analytics and goals screens in supplied screenshots",
+      "Banner and rewarded advertising reported by the developer",
+      "Public release and installation documentation"
+    ],
+    "tech": [
+      "Kotlin (reported)",
+      "Jetpack Compose (reported)",
+      "Android"
+    ],
+    "limits": "The public repository distributes the binary and documentation; Kotlin source is not included. No independent device test or advertising/privacy certification is claimed.",
+    "source_note": "Release & installation guide"
+  },
+  {
+    "id": "exchange-rate",
+    "title": "USD to LKR Reference Tool",
+    "category": "finance tools",
+    "kind": "Exchange-rate experiment",
+    "status": "Experimental",
+    "featured": false,
+    "repo": "usd-lkr-rate",
+    "demo": null,
+    "image": null,
+    "alt": "",
+    "summary": "A Sinhala-language currency converter exploring live reference rates and adjustable buy/sell spreads.",
+    "features": [
+      "Currency selection and conversion",
+      "Fallback rate-provider requests",
+      "Adjustable indicative spread"
+    ],
+    "tech": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Fetch API"
+    ],
+    "limits": "The published page is reachable, but rate-provider accuracy and availability have not been accepted in this audit. Presented as an experiment; open the repository for details.",
+    "source_note": "Explore repository"
+  }
+]
