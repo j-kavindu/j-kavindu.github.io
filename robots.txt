@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /audit/
 
 Sitemap: https://j-kavindu.github.io/sitemap.xml
