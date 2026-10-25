@@ -228,6 +228,21 @@
     padding:10px 20px 40px;
   }
 </style>
+
+<meta name="description" content="Browser-based PDF tools for merging documents, removing pages, converting PDF pages to JPG and combining images into PDF. Files are processed on your device.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://j-kavindu.github.io/pdf-toolkit/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PDF Toolkit | Kavindu Heshan Jayawardhana">
+<meta property="og:description" content="Merge PDFs, remove pages and convert PDF and image files in your browser.">
+<meta property="og:url" content="https://j-kavindu.github.io/pdf-toolkit/">
+<meta property="og:image" content="https://j-kavindu.github.io/social-preview.png">
+<meta property="og:image:alt" content="Kavindu Heshan Jayawardhana — Accounting and Technology Portfolio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PDF Toolkit | Kavindu Heshan Jayawardhana">
+<meta name="twitter:description" content="PDF merging, page removal and PDF/image conversion in the browser.">
+<meta name="twitter:image" content="https://j-kavindu.github.io/social-preview.png">
 </head>
 <body>
 
@@ -410,7 +425,7 @@ setupDropzone('drop-delete','input-delete', async (file)=>{
   document.getElementById('actions-delete').style.display = 'none';
 
   deletePdfBytes = await file.arrayBuffer();
-  const loadingTask = pdfjsLib.getDocument({data: deletePdfBytes.slice(0)});
+  const loadingTask = pdfjsLib.getDocument({data: deletePdfBytes.slice(0), isEvalSupported: false});
   const pdf = await loadingTask.promise;
   deletePageCount = pdf.numPages;
   grid.innerHTML = '';
@@ -464,7 +479,7 @@ setupDropzone('drop-pdf2img','input-pdf2img', async (file)=>{
   document.getElementById('actions-pdf2img').style.display = 'none';
 
   const bytes = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({data: bytes}).promise;
+  const pdf = await pdfjsLib.getDocument({data: bytes, isEvalSupported: false}).promise;
   grid.innerHTML = '';
   const canvases = [];
 
