@@ -66,7 +66,7 @@ class PortfolioChecks(unittest.TestCase):
   for path in PAGES[:-1]:
    graph=Page(path).scripts[0]['@graph'];person=next(n for n in graph if n['@type']=='Person');self.assertEqual(person['name'],'Kavindu Heshan Jayawardhana');self.assertEqual(person['jobTitle'],'Accounting Undergraduate');self.assertEqual(len(person['sameAs']),2)
  def test_project_filter_data(self):
-  p=Page(ROOT/'index.html');cards=[d for tag,d in p.tags if'data-project'in d];self.assertEqual(len(cards),9);self.assertEqual(sum('featured-card'in d['class']for d in cards),3)
+  p=Page(ROOT/'index.html');cards=[d for tag,d in p.tags if'data-project'in d];projects=json.loads((ROOT/'projects.json').read_text());self.assertEqual(len(cards),len(projects));self.assertEqual(sum('featured-card'in d['class']for d in cards),sum(p['featured'] for p in projects))
   for c in ['accounting','finance','economics','tools','android']:self.assertTrue(any(c in d['data-category'].split()for d in cards))
  def test_no_invented_cv_or_contact_form(self):
   p=Page(ROOT/'index.html');self.assertEqual(p.select('form'),[]);self.assertFalse(any('download'in d for d in p.select('a')))
