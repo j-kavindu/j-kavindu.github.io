@@ -1,5 +1,33 @@
 [
   {
+    "id": "ledger-arena",
+    "title": "Ledger Arena",
+    "category": "accounting",
+    "kind": "Accounting practice game",
+    "status": "Published app",
+    "featured": true,
+    "repo": "ledger-arena",
+    "demo": "https://j-kavindu.github.io/ledger-arena/",
+    "image": "project-ledger-arena.webp",
+    "alt": "Ledger Arena in dark mode showing accounting practice challenges, Google sign-in and install controls",
+    "summary": "Build accounting confidence through practical cases, timed challenges and clear explanations.",
+    "features": [
+      "10,210 practice cases, including numerical variants, across accounting topics",
+      "Google sign-in with private progress synchronization between devices",
+      "Installable web app with offline practice and a saved light/dark theme"
+    ],
+    "tech": [
+      "JavaScript",
+      "Firebase",
+      "PWA"
+    ],
+    "skills": "Accounting application · interactive learning · offline-first web design",
+    "limits": "The question bank includes repeated numerical methods with different facts. Real two-device account acceptance and physical-device installation remain pending. Guest progress stays local.",
+    "evidence": "Published GitHub Pages game; live desktop practice and dark-mode checks completed. Question rotation, account isolation, simulated two-client synchronization and offline cache checks passed.",
+    "source_note": "View source",
+    "detail": false
+  },
+  {
     "id": "finstatement-pro",
     "title": "FinStatement Pro",
     "category": "accounting",
